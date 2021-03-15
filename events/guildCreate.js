@@ -3,10 +3,15 @@ const { PREFIX } = require("../util/sharkyUtil");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = (guild) => {
-  var channel = guild.channels.cache
-    .filter((chx) => chx.type === "text")
-    .find((x) => x.position === 0);
-  let newEmbed = new MessageEmbed()
+ let found = 0;
+    guild.channels.cache.map((c) => {
+        if (found === 0) {
+          if (channel.type === "text") {
+            if (channel.permissionsFor(guild.me).has("VIEW_CHANNEL") === true) {
+              if (channel.permissionsFor(guild.me).has("SEND_MESSAGES") === true) {
+                if (channel.permissionsFor(guild.me).has("EMBED_LINKS") === true) {
+                  if (channel.permissionsFor(guild.me).has("USE_EXTERNAL_EMOJIS") === true) {
+                let newEmbed = new MessageEmbed()
     .setColor("#FF2C4B")
     .setTitle(
       "Thanks for inviting me into this server <a:sh_like:812742588439593000>"
@@ -18,4 +23,11 @@ module.exports = (guild) => {
     .setImage("")
     .setFooter("");
   channel.send(newEmbed);
+                
+                found = 1;
+              }
+            }
+          }
+        }
+      });
 };
