@@ -31,6 +31,7 @@ module.exports = async (message, cooldowns) => {
       .catch((e) => console.log(`Failed to save a member's messages: ${e}`));
   }
 
+  if(msgDoc) {
   const msgss = msgDoc.messages
   if (msgss === 100) {
     const { body } = await request.get(
@@ -67,7 +68,8 @@ module.exports = async (message, cooldowns) => {
     const attach = new Discord.MessageAttachment(body, "achiev.png");
     message.reply(attach);
   }
-
+  }
+  
   let custom;
 
   const data = await prefixModel
@@ -82,7 +84,7 @@ module.exports = async (message, cooldowns) => {
 
   let p = custom;
 
-  if (message.content.startsWith(`<@${message.client.user.id}>` || `<@!${message.client.user.id}>`)) {
+  if (message.content.startsWith(`<@${message.client.user.id}>`)) {
     return message.channel.send(
       `My prefix in this server is \`${p}\`\n\nTo get a list of commands, type \`${p}help\``
     );
