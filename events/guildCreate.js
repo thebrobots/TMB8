@@ -6,11 +6,11 @@ module.exports = (guild) => {
  let found = 0;
     guild.channels.cache.map((c) => {
         if (found === 0) {
-          if (channel.type === "text") {
-            if (channel.permissionsFor(guild.me).has("VIEW_CHANNEL") === true) {
-              if (channel.permissionsFor(guild.me).has("SEND_MESSAGES") === true) {
-                if (channel.permissionsFor(guild.me).has("EMBED_LINKS") === true) {
-                  if (channel.permissionsFor(guild.me).has("USE_EXTERNAL_EMOJIS") === true) {
+          if (c.type === "text") {
+            if (c.permissionsFor(guild.me).has("VIEW_CHANNEL") === true) {
+              if (c.permissionsFor(guild.me).has("SEND_MESSAGES") === true) {
+                if (c.permissionsFor(guild.me).has("EMBED_LINKS") === true) {
+                  if (c.permissionsFor(guild.me).has("USE_EXTERNAL_EMOJIS") === true) {
                 let newEmbed = new MessageEmbed()
     .setColor("#FF2C4B")
     .setTitle(
@@ -22,7 +22,7 @@ module.exports = (guild) => {
     )
     .setImage("")
     .setFooter("");
-  channel.send(newEmbed);
+  c.send(newEmbed);
                 
                 found = 1;
               }
