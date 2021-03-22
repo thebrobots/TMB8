@@ -37,7 +37,7 @@ module.exports = (client) => {
       useUnifiedTopology: true,
       useFindAndModify: false,
     })
-    .then(console.log(chalk.bgRedBright.black(` YMF8 connected to Mongo DB! `)))
+    .then(console.log(chalk.bgRedBright.black(` TMB8 connected to Mongo DB! `)))
     .catch((err) =>
       console.log(chalk.bgRed.black(` Unable to connect to Mongo DB! `))
     );
