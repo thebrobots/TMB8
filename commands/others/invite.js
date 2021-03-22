@@ -13,11 +13,11 @@ module.exports = {
       .setImage("")
       .setFooter("")
       .addField(
-        "<:sh_ymf8:820734376894529537> __Add YMF8 to your Server__",
+        "<:sh_ymf8:820734376894529537> __Add TMB8 to your Server__",
         `[Click here!!](${inviteURL2})`
       )
       .addField(
-        "<:sh_yhf8:820734376714174494> __Add YHF8 to your Server__",
+        "<:sh_yhf8:820734376714174494> __Add THB8 to your Server__",
         `[Click here!!](${inviteURL})`
       )
       .addField(
