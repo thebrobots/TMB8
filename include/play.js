@@ -1,9 +1,9 @@
 const ytdl = require("discord-ytdl-core");
 const scdl = require("soundcloud-downloader").default;
-const { canModifyQueue } = require("../util/sharkyUtil");
 const { MessageEmbed } = require("discord.js");
 const { attentionembed } = require("../util messages/attentionembed");
 const createBar = require("../util messages/string-progressbar");
+const sf = require("seconds-formater");
 
 module.exports = {
   async play(song, client, message, filters) {
@@ -118,7 +118,7 @@ module.exports = {
     } catch (error) {
       if (queue) {
         queue.songs.shift();
-        module.exports.play(queue.songs[0], message);
+        module.exports.play(queue.songs[0], client, message);
       }
 
       console.error(error);
@@ -142,16 +142,16 @@ module.exports = {
           if (queue.loop) {
             let lastSong = queue.songs.shift();
             queue.songs.push(lastSong);
-            module.exports.play(queue.songs[0], message);
+            module.exports.play(queue.songs[0], client, message);
           } else {
             queue.songs.shift();
-            module.exports.play(queue.songs[0], message);
+            module.exports.play(queue.songs[0], client, message);
           }
         })
         .on("error", (err) => {
           console.error(err);
           queue.songs.shift();
-          module.exports.play(queue.songs[0], message);
+          module.exports.play(queue.songs[0], client, message);
         });
       dispatcher.setVolumeLogarithmic(queue.volume / 100);
     } else {
@@ -163,32 +163,33 @@ module.exports = {
           if (queue.loop) {
             let lastSong = queue.songs.shift();
             queue.songs.push(lastSong);
-            module.exports.play(queue.songs[0], message);
+            module.exports.play(queue.songs[0], client, message);
           } else {
             queue.songs.shift();
-            module.exports.play(queue.songs[0], message);
+            module.exports.play(queue.songs[0], client, message);
           }
         })
         .on("error", (err) => {
           console.error(err);
           queue.songs.shift();
-          module.exports.play(queue.songs[0], message);
+          module.exports.play(queue.songs[0], client, message);
         });
       dispatcher.setVolumeLogarithmic(queue.volume / 100);
     }
 
     try {
       let message = `<:sh_music:799392370164236308> **Started playing** \`${song.title}\``;
+
       var playingMessage = await queue.textChannel.send(message);
-      await playingMessage.react("<:sh_skip:799392380750659604>");
-      await playingMessage.react("<:sh_pause:799392368846438460>");
-      await playingMessage.react("<:sh_mute:799392371267338260>");
-      await playingMessage.react("<:sh_lowvol:799392393619177514>");
-      await playingMessage.react("<:sh_vol:799392383997444117>");
-      await playingMessage.react("<:sh_shuffle:799392378497925130>");
-      await playingMessage.react("<:sh_loop:799392367681208330>");
-      await playingMessage.react("<:sh_stop:799392388576968724>");
-      await playingMessage.react("<:sh_np:812824625720590367>");
+      playingMessage.react("<:sh_skip:799392380750659604>");
+      playingMessage.react("<:sh_pause:799392368846438460>");
+      playingMessage.react("<:sh_mute:799392371267338260>");
+      playingMessage.react("<:sh_lowvol:799392393619177514>");
+      playingMessage.react("<:sh_vol:799392383997444117>");
+      playingMessage.react("<:sh_shuffle:799392378497925130>");
+      playingMessage.react("<:sh_loop:799392367681208330>");
+      playingMessage.react("<:sh_stop:799392388576968724>");
+      playingMessage.react("<:sh_np:812824625720590367>");
     } catch (error) {
       console.error(error);
     }
@@ -200,13 +201,12 @@ module.exports = {
 
     collector.on("collect", async (reaction, user) => {
       if (!queue) return;
-      const member = message.guild.member(user);
+      const member = message.guild.members.cache.get(user.id);
 
       switch (reaction.emoji.name) {
         case "sh_skip":
           queue.playing = true;
           reaction.users.remove(user).catch(console.error);
-          if (!canModifyQueue(member)) return;
           queue.connection.dispatcher.end();
           queue.textChannel
             .send(`<:sh_skip:799392380750659604> Skipped the song!`)
@@ -216,7 +216,6 @@ module.exports = {
 
         case "sh_pause":
           reaction.users.remove(user).catch(console.error);
-          if (!canModifyQueue(member)) return;
           if (queue.playing) {
             queue.playing = !queue.playing;
             queue.connection.dispatcher.pause(true);
@@ -234,7 +233,6 @@ module.exports = {
 
         case "sh_mute":
           reaction.users.remove(user).catch(console.error);
-          if (!canModifyQueue(member)) return;
           if (queue.volume <= 0) {
             queue.volume = 100;
             queue.connection.dispatcher.setVolumeLogarithmic(100 / 100);
@@ -252,7 +250,6 @@ module.exports = {
 
         case "sh_lowvol":
           reaction.users.remove(user).catch(console.error);
-          if (!canModifyQueue(member) || queue.volume == 0) return;
           if (queue.volume - 10 <= 0) queue.volume = 0;
           else queue.volume = queue.volume - 10;
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
@@ -265,7 +262,6 @@ module.exports = {
 
         case "sh_vol":
           reaction.users.remove(user).catch(console.error);
-          if (!canModifyQueue(member) || queue.volume == 100) return;
           if (queue.volume + 10 >= 100) queue.volume = 100;
           else queue.volume = queue.volume + 10;
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
@@ -278,7 +274,6 @@ module.exports = {
 
         case "sh_shuffle":
           reaction.users.remove(user).catch(console.error);
-          if (!canModifyQueue(member)) return;
           let songs = queue.songs;
           for (let i = songs.length - 1; i > 1; i--) {
             let j = 1 + Math.floor(Math.random() * i);
@@ -291,7 +286,6 @@ module.exports = {
 
         case "sh_loop":
           reaction.users.remove(user).catch(console.error);
-          if (!canModifyQueue(member)) return;
           queue.loop = !queue.loop;
           queue.textChannel
             .send(
@@ -357,7 +351,7 @@ module.exports = {
           let nowPlaying = new MessageEmbed()
             .setDescription(`[${song.title}](${song.url})`)
 
-            .setColor("#ffe65d")
+            .setColor("#ffe65d");
 
           if (song.duration > 0) {
             nowPlaying.setFooter(
@@ -394,7 +388,6 @@ module.exports = {
 
         case "sh_stop":
           reaction.users.remove(user).catch(console.error);
-          if (!canModifyQueue(member)) return;
           queue.songs = [];
           queue.textChannel
             .send(`<:sh_stop:799392388576968724> Stopped the music!`)
