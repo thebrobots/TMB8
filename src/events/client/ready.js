@@ -32,7 +32,6 @@ module.exports = (client) => {
       console.log(chalk.bgRed.black(` Unable to connect to Mongo DB! `))
     );
   
-  /*
  setInterval(() => {
   let allMembers = new Set();
   client.guilds.cache.forEach((guild) => {
@@ -40,7 +39,7 @@ module.exports = (client) => {
       allMembers.add(member.user.id);
     });
   });
-  
+  /*
   fetch("https://top.gg/api//bots/800074066949832714/stats", {
     method: "POST",
     headers: {
@@ -53,6 +52,7 @@ module.exports = (client) => {
     .then((res) => res.json())
     .then((json) => console.log(json))
     .then(console.log("posted stats to topgg"));
+    
   fetch("https://space-bot-list.xyz/api/bots/800074066949832714", {
     method: "POST",
     headers: {
@@ -79,12 +79,13 @@ module.exports = (client) => {
     .then((res) => res.json())
     .then((json) => console.log(json))
     .then(console.log("posted stats to discord bots"));
-  fetch("https://api.infinitybotlist.com/bot/800074066949832714", {
+    */
+  fetch("https://api.infinitybotlist.com/bot/820636341788344321", {
     method: "POST",
     headers: {
      "Content-Type": "application/json",
       authorization:
-        "uFH3YWFu8RekGoH8evrE5KG4evFlNb3ScNVAYs6OFjsvfVT2SLBjUI8p2j6IEPoguvb5uUURqcJCnO7qE8aglpjeVjcFCDcizL7j",
+        "HQ7Pj5TRqVUk0LjtpruFWBcTYcTPZDdEFgIZqL6thxPgFkf2paqguRlAPumW2iccle65zmmdv3VD3ntTFANw99K8MJPhOX9C2mUKj",
     },
     body: JSON.stringify({ servers: client.guilds.cache.size, shards: 1 }),
   })
@@ -92,5 +93,5 @@ module.exports = (client) => {
     .then((json) => console.log(json))
     .then(console.log("posted stats to infinity bot list"));
 }, 900000);
-*/
+
 };
