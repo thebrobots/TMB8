@@ -1,0 +1,15 @@
+{
+  "helpMsg1": [
+    "`clear` `kick` `mute` `unmute` `warn` `warnings` `unwarn` `slowmode` `setnick`"
+  ],
+  "helpMsg2": [
+    "`play` `pause` `resume` `leave` `loop` `lyrics` `move` `np` `queue` `remove` `search` `shuffle` `skip` `skipto` `stop` `volume` `filter` `radio`"
+  ],
+  "helpMsg3": [
+    "`server` `channel` `whois`"
+  ],
+  "helpMsg4": ["`prefix` `enable` `disable` `word`"],
+  "helpMsg5": [
+    "`help` `uptime` `invite` `ping` `change-log` `bot`"
+  ]
+}
