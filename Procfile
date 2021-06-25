@@ -1,1 +1,1 @@
-worker: node happy.js
+worker: node mad.js
