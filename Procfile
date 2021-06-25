@@ -1,1 +1,1 @@
-worker: node mad.js
+worker: node src/mad.js
