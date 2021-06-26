@@ -85,7 +85,7 @@ module.exports = (client) => {
     headers: {
      "Content-Type": "application/json",
       authorization:
-        "HQ7Pj5TRqVUk0LjtpruFWBcTYcTPZDdEFgIZqL6thxPgFkf2paqguRlAPumW2iccle65zmmdv3VD3ntTFANw99K8MJPhOX9C2mUKj",
+        "gCRJIaxOItHNTe97uk8i1r7Cfe4BPjQ75MfXFPG5lqczErrU6oBz2Hfd8ZCAvQkhb5xmCGooc61xyMQKtrOIcUxp3HrSqU0breTm",
     },
     body: JSON.stringify({ servers: client.guilds.cache.size, shards: 1 }),
   })
