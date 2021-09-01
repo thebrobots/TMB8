@@ -4,8 +4,8 @@ const { play } = require("../../include/play");
 const spotifyURI = require("spotify-uri");
 const Spotify = require("node-spotify-api");
 const spotify = new Spotify({
-  id: "a4c2a1737a8e4dfebcf05f740af41a71",
-  secret: "5f855852ce9c48159c91e6b54ec62661",
+  id: "spotify id",
+  secret: "spotify secret",
 });
 
 const ytdl = require("ytdl-core");

@@ -1,8 +1,8 @@
 {
-  "ownerid": "521311050193436682",
-  "thb8_invite": "https://discord.com/oauth2/authorize?client_id=800074066949832714&scope=bot&permissions=2079714502https://discord.com/oauth2/authorize?client_id=800074066949832714&scope=bot&permissions=2079714502",
-  "tmb8_invite": "https://discord.com/oauth2/authorize?client_id=820636341788344321&scope=bot&permissions=2079714502",
-  "support_server": "https://discord.gg/J8RNPvsKPc",
+  "ownerid": "owner id",
+  "thb8_invite": "thb8 invite link",
+  "tmb8_invite": "tmb8 invite link",
+  "support_server": ":support server invite link",
   "MAX_PLAYLIST_SIZE": 500,
   "prefix": "y/",
   "EMPTY_PAUSE": true,
