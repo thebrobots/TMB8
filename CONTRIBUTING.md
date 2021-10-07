@@ -3,7 +3,7 @@
 Note: contributing implies licensing those contributions
 under the terms of [LICENSE](../LICENSE), which is a MIT license.
 
-## Mkaing pull requests
+## Making pull requests
 
 * Make sure no one has opened a issue with the same topic
 * Make sure the code works properly
